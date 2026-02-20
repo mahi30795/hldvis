@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test-js:
+    name: Lint and Test JS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Type check
+        run: pnpm --filter web typecheck
+      - name: Build
+        run: pnpm --filter web build
+
+  lint-and-test-rust:
+    name: Lint and Test Rust
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+          components: rustfmt, clippy
+      - name: Cache Rust
+        uses: Swatinem/rust-cache@v2
+      - name: Cargo fmt check
+        run: cargo fmt --all -- --check
+      - name: Cargo clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Cargo test
+        run: cargo test --all
