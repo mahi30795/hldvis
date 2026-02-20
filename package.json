@@ -2,7 +2,7 @@
   "name": "hldvis",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter web dev",
+    "dev": "pnpm --filter web preview",
     "build": "pnpm --filter web build",
     "build:wasm": "cd crates/hldvis-simulation && cargo build --release --target wasm32-unknown-unknown",
     "test": "pnpm --filter web test",

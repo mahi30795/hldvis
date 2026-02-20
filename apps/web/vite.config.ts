@@ -6,4 +6,7 @@ export default defineConfig({
   worker: {
     format: 'es',
   },
+  preview:{
+    allowedHosts: ["hld.d3cod3r.online"]
+  }
 })
