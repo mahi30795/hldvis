@@ -4,8 +4,8 @@ import { SimResults } from './SimResults';
 
 export const SimPanel: React.FC = () => {
   return (
-    <div className="flex items-stretch border-t border-gray-700 bg-gray-800 h-28">
-      <div className="border-r border-gray-700">
+    <div className="flex items-stretch border-t border-divider-subtle/10 glass h-32 animate-fade-in-up">
+      <div className="border-r border-divider-subtle/10 flex-shrink-0">
         <SimControls />
       </div>
       <SimResults />
